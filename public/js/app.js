@@ -144,10 +144,32 @@ document.addEventListener('DOMContentLoaded', () => {
         quizForm.appendChild(submitButton);
     }
 
-    function calculateAndShowResults() {
+    // public/js/app.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (keep the other element references)
+    const usernameInput = document.getElementById('username-input'); // <-- ADD THIS LINE
+    let currentTopic = ''; // To store the topic of the current quiz
+
+    // ... (keep the event listeners)
+
+    // In your fetchAndShowQuiz function, add this line right at the top
+    async function fetchAndShowQuiz() {
+        currentTopic = topicInput.value.trim(); // <-- ADD THIS LINE to save the topic
+        // ... (the rest of the function is the same)
+    }
+
+    // Replace the old calculateAndShowResults function with this new one
+    // public/js/app.js
+
+    // ... (keep the rest of your JS code)
+
+    async function calculateAndShowResults() {
+        // ... (the top part of the function calculating the score is the same)
         let score = 0;
         const totalQuestions = quizData.questions.length;
         const formData = new FormData(quizForm);
+        const username = usernameInput.value.trim() || 'Guest';
 
         quizData.questions.forEach((q, index) => {
             const userAnswer = formData.get(`question${index}`);
@@ -155,9 +177,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 score++;
             }
         });
-
-        resultsText.textContent = `You scored ${score} out of ${totalQuestions}!`;
+        
+        resultsText.textContent = "Submitting your score...";
         quizScreen.classList.add('hidden');
         resultsScreen.classList.remove('hidden');
+
+        try {
+            const submissionPayload = { username, topic: currentTopic, score, totalQuestions };
+
+            const response = await fetch('/api/quiz/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(submissionPayload)
+            });
+
+            if (!response.ok) throw new Error('Failed to save score.');
+
+            const result = await response.json();
+
+            // --- NEW DISPLAY LOGIC ---
+            let resultHTML = `You scored ${score} out of ${totalQuestions}!<br>`;
+            resultHTML += `You earned ${result.pointsEarned} points. Your total is now ${result.totalPoints}.<br>`;
+            if (result.streak > 1) {
+                resultHTML += `You're on a ${result.streak}-day streak! 🔥<br>`;
+            }
+            if (result.newBadges && result.newBadges.length > 0) {
+                resultHTML += `🎉 Badge Unlocked: ${result.newBadges.join(', ')}! 🎉`;
+            }
+            resultsText.innerHTML = resultHTML;
+
+        } catch (error) {
+            console.error("Error submitting score:", error);
+            resultsText.textContent = `You scored ${score} out of ${totalQuestions}, but we couldn't save your score.`;
+        }
     }
+});
 });
