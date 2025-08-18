@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
+// Serve static files (HTML, CSS, JS) from the 'public' directory
+app.use(express.static('public'));
 // API Routes
 // All routes defined in quizRoutes will be prefixed with /api/quiz
 app.use('/api/quiz', quizRoutes);
