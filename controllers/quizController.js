@@ -6,7 +6,7 @@ const generateQuiz = async (req, res) => {
   try {
     // Get the topic from the JSON body of the POST request
     const { topic } = req.body;
-
+    console.log(topic)
     // Basic validation to ensure a topic was sent
     if (!topic) {
       return res.status(400).json({ error: 'Topic is required in the request body' });
