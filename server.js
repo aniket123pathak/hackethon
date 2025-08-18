@@ -12,6 +12,12 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.use(express.json());
+
+// Serve static files (HTML, CSS, JS) from the 'public' directory
+app.use(express.static('public'));
+// API Routes
+// All routes defined in quizRoutes will be prefixed with /api/quiz
+
 app.use('/api/quiz', quizRoutes);
 
 // NEW -- Create a route to render our quiz page
