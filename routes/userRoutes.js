@@ -1,9 +1,12 @@
-
 // routes/userRoutes.js
 const express = require('express');
-const { getUserProfile } = require('../controllers/userController.js');
-const router = express.Router();
+const { getUserProfile, getUserHistory } = require('../controllers/userController');
 
-router.get('/:username', getUserProfile);
+// RENAMED from 'router' to 'userRouter' for clarity
+const userRouter = express.Router();
 
-module.exports = router;
+userRouter.get('/:username', getUserProfile);
+userRouter.get('/history/:username', getUserHistory);
+
+// Exporting the new variable name
+module.exports = userRouter;

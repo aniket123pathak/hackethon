@@ -16,6 +16,13 @@ app.get('/quiz', (req, res) => {
   res.render('quiz', { title: 'AI Quiz' });
 });
 
+
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard', { title: 'My Dashboard' }); // This will render views/dashboard.ejs
+});
+
+// ... (the rest of the file)
+
 app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {

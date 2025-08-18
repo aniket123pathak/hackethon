@@ -1,14 +1,16 @@
-
+// routes/quizRoutes.js
 const express = require('express');
 const { generateQuiz } = require('../controllers/quizController');
-const { handleSubmitQuiz } = require('../controllers/gamifyController'); // <-- ADD THIS LINE
+const { handleSubmitQuiz } = require('../controllers/gamifyController');
 
-const router = express.Router();
+// RENAMED from 'router' to 'quizRouter' for clarity
+const quizRouter = express.Router();
 
 // Route for Person 1 & 2
-router.post('/generate', generateQuiz);
+quizRouter.post('/generate', generateQuiz);
 
 // Route for Person 3
-router.post('/submit', handleSubmitQuiz); // <-- ADD THIS LINE
+quizRouter.post('/submit', handleSubmitQuiz);
 
-module.exports = router;
+// Exporting the new variable name
+module.exports = quizRouter;

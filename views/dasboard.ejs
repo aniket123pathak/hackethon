@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container dashboard">
+        <h1>Learning Engagement Report</h1>
+        <h2 id="dashboard-username">For User...</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Points</h3>
+                <p id="total-points">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Current Streak</h3>
+                <p id="current-streak">0 days 🔥</p>
+            </div>
+            <div class="stat-card">
+                <h3>Badges Earned</h3>
+                <p id="badges-earned">-</p>
+            </div>
+        </div>
+
+        <h3>Recent Quiz Performance</h3>
+        <div class="chart-container">
+            <canvas id="performance-chart"></canvas>
+        </div>
+        
+        <a href="/quiz" class="dashboard-link">Take Another Quiz</a>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

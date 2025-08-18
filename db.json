@@ -4,7 +4,7 @@
       "totalPoints": 40,
       "badges": [],
       "streak": 1,
-      "lastPlayed": "2025-08-18T22:09:31.392Z"
+      "lastPlayed": "2025-08-18T22:23:37.545Z"
     },
     "a1": {
       "totalPoints": 30,
@@ -53,6 +53,14 @@
       "totalQuestions": 5,
       "pointsEarned": 30,
       "takenAt": "2025-08-18T22:10:21.221Z"
+    },
+    {
+      "username": "Aniket",
+      "topic": "ramanujan",
+      "score": 0,
+      "totalQuestions": 5,
+      "pointsEarned": 0,
+      "takenAt": "2025-08-18T22:23:37.545Z"
     }
   ]
 }
