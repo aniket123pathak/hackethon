@@ -1,7 +1,4 @@
-
 const axios = require('axios');
-
-
 const WORQHAT_API_URL = 'https://api.worqhat.com/api/ai/v1/generate'; // Our first candidate
 
 
@@ -82,3 +79,4 @@ const generateQuizFromWorqHat = async (topic) => {
 };
 
 module.exports = { generateQuizFromWorqHat };
+
