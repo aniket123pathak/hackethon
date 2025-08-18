@@ -1,7 +1,7 @@
 // server.js
 require('dotenv').config(); // Loads environment variables from .env file
 const express = require('express');
-const quizRoutes = require('./routes/quizRoutes');
+const quizRoutes = require('./routes/quizRoutes.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
