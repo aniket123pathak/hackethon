@@ -1,7 +1,11 @@
 // ===================================================================================
 //  STEP 3: THE "PHONE CALL" TO THE BACKEND TO GET QUESTIONS
 // ===================================================================================
+
+
 // This function makes a network request to your backend's API endpoint.
+const topicInput = document.getElementById('topic-input');
+
 async function fetchQuiz(topic) {
     console.log(`Fetching quiz for topic: ${topic}`);
 
@@ -54,28 +58,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- FUNCTIONS ---
+    // public/js/app.js
+
+    // ... (keep all the other code) ...
+
+    // Fetches quiz data from our backend and displays it
     async function fetchAndShowQuiz() {
+        const topic = topicInput.value.trim(); // Get the topic from the input box
+        const errorMsg = document.getElementById('error-message');
+
+        // Check if the user actually typed something
+        if (topic === '') {
+            errorMsg.textContent = 'Please enter a topic.';
+            errorMsg.classList.remove('hidden');
+            return; // Stop the function if there's no topic
+        }
+        
+        errorMsg.classList.add('hidden'); // Hide any previous errors
+
         try {
+            // Show a loading message
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
-            quizForm.innerHTML = '<p>Generating your quiz with AI...</p>';
+            quizForm.innerHTML = `<p>Generating your quiz on "${topic}" with AI...</p>`;
 
             const response = await fetch('/api/quiz/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic: 'Beginner Python' })
+                body: JSON.stringify({ topic: topic }) // <-- Send the user's topic
             });
 
-            if (!response.ok) throw new Error('Failed to fetch quiz.');
+            if (!response.ok) {
+                throw new Error('Failed to fetch quiz from the server.');
+            }
 
             quizData = await response.json();
+
+            // Check if the AI returned any questions
+            if (quizData.questions.length === 0) {
+                 throw new Error('The AI could not generate a quiz for this topic. Please try a different one.');
+            }
+
             displayQuiz(quizData.questions);
 
         } catch (error) {
             console.error("Error fetching quiz:", error);
-            quizForm.innerHTML = `<p class="error">Sorry, we couldn't generate a quiz right now.</p>`;
+            // Go back to the start screen to show the error
+            startScreen.classList.remove('hidden');
+            quizScreen.classList.add('hidden');
+            errorMsg.textContent = error.message;
+            errorMsg.classList.remove('hidden');
         }
     }
+
+    // ... (the rest of your functions are perfect, no changes needed) ...
+    
 
     function displayQuiz(questions) {
         quizForm.innerHTML = ''; 
