@@ -1,4 +1,4 @@
-// controllers/userController.js
+
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -21,8 +21,6 @@ exports.getUserProfile = async (req, res) => {
     }
 };
 
-// controllers/userController.js
-// ... (keep the getUserProfile function) ...
 
 exports.getUserHistory = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-// routes/quizRoutes.js
+
 const express = require('express');
 const { generateQuiz } = require('../controllers/quizController');
 const { handleSubmitQuiz } = require('../controllers/gamifyController');

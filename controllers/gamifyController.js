@@ -1,10 +1,9 @@
-// controllers/gamifyController.js
+
 const fs = require('fs/promises');
 const path = require('path');
 
 const dbPath = path.join(__dirname, '..', 'db.json');
 
-// --- Define our Gamification Rules ---
 const BADGES = [
     { name: "Curious Mind", points: 100 },
     { name: "Quick Learner", points: 500 },
@@ -12,15 +11,13 @@ const BADGES = [
     { name: "Knowledge Master", points: 2500 }
 ];
 
-// Helper function to check if two dates are on consecutive days
 function areConsecutiveDays(dateStr1, dateStr2) {
     const d1 = new Date(dateStr1);
     const d2 = new Date(dateStr2);
-    // Set both to the start of their day
     d1.setHours(0, 0, 0, 0);
     d2.setHours(0, 0, 0, 0);
     const diff = d2.getTime() - d1.getTime();
-    return diff === 24 * 60 * 60 * 1000; // Difference is exactly one day
+    return diff === 24 * 60 * 60 * 1000;
 }
 
 exports.handleSubmitQuiz = async (req, res) => {
@@ -34,7 +31,6 @@ exports.handleSubmitQuiz = async (req, res) => {
         const db = JSON.parse(dbRaw);
         const now = new Date();
 
-        // Initialize user if they don't exist
         if (!db.users[username]) {
             db.users[username] = {
                 totalPoints: 0,
@@ -48,25 +44,21 @@ exports.handleSubmitQuiz = async (req, res) => {
         const pointsEarned = score * 10;
         user.totalPoints += pointsEarned;
 
-        // --- Streak Logic ---
         if (user.lastPlayed && areConsecutiveDays(user.lastPlayed, now.toISOString())) {
-            user.streak += 1; // It's a consecutive day, increase streak
+            user.streak += 1;
         } else {
-            user.streak = 1; // Not a consecutive day, reset streak to 1
+            user.streak = 1;
         }
         user.lastPlayed = now.toISOString();
 
-        // --- Badge Logic ---
         const newBadgesEarned = [];
         BADGES.forEach(badge => {
-            // If user has enough points and doesn't already have the badge
             if (user.totalPoints >= badge.points && !user.badges.includes(badge.name)) {
                 user.badges.push(badge.name);
                 newBadgesEarned.push(badge.name);
             }
         });
         
-        // Add to history
         db.quizHistory.push({ username, topic, score, totalQuestions, pointsEarned, takenAt: now.toISOString() });
 
         await fs.writeFile(dbPath, JSON.stringify(db, null, 2));
@@ -76,7 +68,7 @@ exports.handleSubmitQuiz = async (req, res) => {
             pointsEarned,
             totalPoints: user.totalPoints,
             streak: user.streak,
-            newBadges: newBadgesEarned // Send back any new badges
+            newBadges: newBadgesEarned
         });
 
     } catch (error) {

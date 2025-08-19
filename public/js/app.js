@@ -1,7 +1,6 @@
-// public/js/app.js (Final, Corrected Version)
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Get all HTML elements ---
     const startScreen = document.getElementById('start-screen');
     const quizScreen = document.getElementById('quiz-screen');
     const resultsScreen = document.getElementById('results-screen');
@@ -14,16 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameInput = document.getElementById('username-input');
     const errorMsg = document.getElementById('error-message');
 
-    let quizData = null; // To store the questions
-    let currentTopic = ''; // To store the current topic
-
-    // --- EVENT LISTENERS ---
+    let quizData = null;
+    let currentTopic = '';
 
     startBtn.addEventListener('click', fetchAndShowQuiz);
 
-    // This is the listener for the submit button
     quizForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // This is crucial to stop the page from reloading
+        event.preventDefault();
         calculateAndShowResults();
     });
 
@@ -31,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsScreen.classList.add('hidden');
         startScreen.classList.remove('hidden');
         quizForm.innerHTML = '';
-        topicInput.value = ''; // Clear the topic input for the next quiz
+        topicInput.value = '';
     });
-
-    // --- FUNCTIONS ---
 
     async function fetchAndShowQuiz() {
         currentTopic = topicInput.value.trim();

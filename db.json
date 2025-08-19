@@ -1,10 +1,10 @@
 {
   "users": {
     "Aniket": {
-      "totalPoints": 40,
+      "totalPoints": 80,
       "badges": [],
       "streak": 1,
-      "lastPlayed": "2025-08-18T22:23:37.545Z"
+      "lastPlayed": "2025-08-19T17:12:25.362Z"
     },
     "a1": {
       "totalPoints": 30,
@@ -61,6 +61,14 @@
       "totalQuestions": 5,
       "pointsEarned": 0,
       "takenAt": "2025-08-18T22:23:37.545Z"
+    },
+    {
+      "username": "Aniket",
+      "topic": "kirmada choota bheem",
+      "score": 4,
+      "totalQuestions": 5,
+      "pointsEarned": 40,
+      "takenAt": "2025-08-19T17:12:25.362Z"
     }
   ]
 }

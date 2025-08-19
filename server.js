@@ -1,4 +1,4 @@
-// server.js (Updated for Frontend)
+
 require('dotenv').config();
 const express = require('express');
 const quizRoutes = require('./routes/quizRoutes.js');
@@ -18,10 +18,10 @@ app.get('/quiz', (req, res) => {
 
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard', { title: 'My Dashboard' }); // This will render views/dashboard.ejs
+    res.render('dashboard', { title: 'My Dashboard' }); 
 });
 
-// ... (the rest of the file)
+
 
 app.use('/api/user', userRoutes);
 
